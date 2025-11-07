@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python main.py:*)",
+      "Bash(gmsh:*)",
+      "Read(//tmp/**)",
+      "Read(//home/gregorygiard/Doctorat/models/cct/geometry/cct/frenet/**)",
+      "Bash(python:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
