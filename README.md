@@ -145,3 +145,70 @@ air = frenet.AirdomainEighthSphere(
 G = frenet.Geometry(C, A, air, tape_res=0.5)
 G.save("/tmp/racetrack.geo")
 ```
+
+## Optimizations
+
+### Optimized Basecurve Discretization
+The basecurve discretization uses `num_points_per_turn = 48` for CCT coils, providing:
+- Accurate representation of helical geometry
+- Proper polynomial transitions
+- Correct terminal alignment with air domain
+
+### No Duplicate Curves
+Air domain terminal surfaces reuse existing TapeBlock curves instead of creating duplicates, ensuring:
+- Clean Gmsh geometry (no Line ID conflicts)
+- Faster mesh generation
+- Smaller .geo files
+
+### Modular Air Domains
+Air domains are separate pluggable classes, allowing:
+- Easy addition of new air domain types
+- Geometry-specific air regions (box for CCT, sphere for racetrack)
+- Clean separation of concerns
+
+## Results
+
+### Racetrack (4 tapes, tape_res=0.5)
+- ✅ Meshes successfully
+- 50,988 nodes
+- 355,074 elements
+- 4 volumes (3 coil + 1 air)
+
+### CCT (4 tapes, tape_res=1.0)
+- ✅ Meshes successfully
+- 338,075 nodes
+- 2,296,644 elements
+- 4 volumes (3 coil + 1 air)
+- Tape terminal extensions enabled for proper air domain alignment
+
+## Dependencies
+
+- Python 3.6+
+- NumPy
+- SciPy (for CCT torsion optimization)
+- Gmsh (for meshing)
+
+## References
+
+- **Frenet-Serret Frames**: Differential geometry for curve-following coordinate systems
+- **CCT Design**: Russenschuck formula with polynomial transitions
+- **Gmsh**: Open-source 3D finite element mesh generator
+
+---
+
+**Author**: Unified implementation combining CCT and Racetrack approaches
+**Date**: 2025-11-07
+**Status**: ✅ Both CCT and Racetrack geometries working and meshing successfully
+
+## Implementation Notes
+
+### Tape Terminal Extensions
+- **CCT**: Tape ends are extended 200mm beyond the basecurve to ensure terminals align with air domain boundaries
+- **Racetrack**: No terminal extension (planar geometry doesn't require it)
+- The `make_ends` flag is automatically set based on the basecurve type (`_isCCT` flag)
+
+### Key Differences from Original
+- **Unified Structure**: Both geometries use the same core classes (Tape, TapeBlock, Geometry)
+- **Pluggable Air Domains**: Separate AirdomainBox (CCT) and AirdomainEighthSphere (Racetrack) classes
+- **Automatic Configuration**: Tape behavior adapts to basecurve type
+- **No Duplicate Curves**: Air domains reuse existing TapeBlock curves for terminal surfaces
