@@ -89,7 +89,7 @@ class BasecurveCCT(Basecurve):
         # Forward path: lead-in + midplane + bulk
         # Goes from t0 to bulk_end using natural parameters
         n_forward = int(self.numpoints * 0.70)
-        t_forward = np.linspace(self.t0 + eps/1000, self.bulk_end, n_forward)
+        t_forward = np.linspace(self.t0 + eps, self.bulk_end, n_forward)
 
         # Return path needs parameter remapping:
         # - rout naturally uses [π, 4π/3] but we map it to [bulk_end, bulk_end + π/3]

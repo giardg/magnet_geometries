@@ -10,3 +10,4 @@ from frenet.BasecurveRacetrack import *
 from frenet.Airdomain import *
 from frenet.AirdomainEighthSphere import *
 from frenet.AirdomainBox import *
+from frenet.AirdomainCylinder import *
