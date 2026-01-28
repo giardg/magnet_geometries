@@ -57,7 +57,12 @@ class AirdomainBox(Airdomain):
         p9 = Point(0.0, 0.0, z_min, self.air_res)
         p10 = Point(0.0, 0.0, z_max, self.air_res)
 
-        self.points = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10]
+        # Center point of the air domain for coarser mesh in the middle
+        z_mid = (z_min + z_max) / 2.0
+        p_center = Point(0.0, 0.0, z_mid, self.air_res)
+
+        self.points = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p_center]
+        self.center_point = p_center  # Store for later embedding in air volume
 
         # Create curves for the box edges
         # Front face outer boundary curves (circular arcs through center p9)
@@ -201,6 +206,9 @@ class AirdomainBox(Airdomain):
         # Create air volume
         air_volume = Volume()
         air_volume.loops.append(air_box_loop)
+
+        # Embed center point in air volume for mesh size control
+        air_volume.embedded_points.append(self.center_point)
 
         self.surfaceloops.append(air_box_loop)
         self.volumes.append(air_volume)

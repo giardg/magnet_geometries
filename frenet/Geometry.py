@@ -233,6 +233,11 @@ class Geometry :
         for v in self.volumes:
             F.Buffer.append(v.write())
 
+        # Write embedded points (Point{p} In Volume{v})
+        for v in self.volumes:
+            for line in v.write_embedded_points():
+                F.Buffer.append(line)
+
         # Save to file
         F.save(path)
 

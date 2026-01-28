@@ -164,7 +164,7 @@ class BasecurveCCT(Basecurve):
 
         # NOTE: Uses t0 and tmatch (NOT t02 and tmatch2) in the argument!
         arg = (t - self.t0) * (np.pi / 2) / (self.tmatch - self.t0)
-        z = -self.z0 - self.b * (np.sin(arg) ** (2 / self.n)) + self.nturns * self.w
+        z = -self.z0 - self.b * (np.abs(np.sin(arg)) ** (2 / self.n)) + self.nturns * self.w
 
         return np.array([x, y, z])
 
@@ -237,7 +237,7 @@ class BasecurveCCT(Basecurve):
 
         # NOTE: Uses t0 and tmatch (NOT t02 and tmatch2) in the argument!
         arg = (t - self.t0) * (np.pi / 2) / (self.tmatch - self.t0)
-        sin_arg = np.sin(arg)
+        sin_arg = np.abs(np.sin(arg))
         cos_arg = np.cos(arg)
 
         if np.abs(sin_arg) < 1e-15:
@@ -319,7 +319,7 @@ class BasecurveCCT(Basecurve):
         # NOTE: Uses t0 and tmatch (NOT t02 and tmatch2) in the argument!
         arg = (t - self.t0) * (np.pi / 2) / (self.tmatch - self.t0)
         k = (np.pi / 2) / (self.tmatch - self.t0)
-        sin_arg = np.sin(arg)
+        sin_arg = np.abs(np.sin(arg))
         cos_arg = np.cos(arg)
 
         if np.abs(sin_arg) < 1e-15:
