@@ -43,8 +43,8 @@ IDE_CONFIG = {
         'gap': 0.381,
         'angle': 16.466362,
         'nturns': 4,
-        'numtapes': 2,
-        'tapedistance': 1.5,
+        'numtapes': 5,
+        'tapedistance': 1.5/4,
         'tape_res': 0.5,
         'air_radius': 20.0,
         'air_res': 20.00
@@ -188,9 +188,9 @@ def generate_cct_geometry(
     # Create base curve
     print("\nCreating CCT base curve...")
     print(f"  R1={R1} mm, R2={R2} mm")
-    print(f"  Tapewidth={tapewidth} mm, gap={tapedistance} mm")
+    print(f"  Tapewidth={tapewidth} mm, gap={gap} mm")
     print(f"  Tilt angle={angle}°, turns={nturns}")
-    basecurve = BasecurveCCT(R1, R2, tapewidth, tapedistance, angle, nturns)
+    basecurve = BasecurveCCT(R1, R2, tapewidth, gap, angle, nturns)
     print(f"  Computed pitch: {basecurve.pitch:.6f} mm")
 
     # Create cross-section
