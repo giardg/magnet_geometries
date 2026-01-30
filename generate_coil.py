@@ -42,9 +42,9 @@ IDE_CONFIG = {
         'tapewidth': 2.0,
         'gap': 0.381,
         'angle': 16.466362,
-        'nturns': 10,
-        'numtapes': 5,
-        'tapedistance': 1.5/4,
+        'nturns': 3,
+        'numtapes': 2,
+        'tapedistance': 1.5,
         'tape_res': 0.5,
         'air_radius': 40.0,
         'air_res': 50.00
